@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tour Agency</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1464278533981-50106e6176b1');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+            text-align: center;
+            color: #ffffff;
+        }
+
+        nav {
+            background-color: rgba(47, 79, 79, 0.8);
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            backdrop-filter: blur(5px);
+        }
+
+        nav a {
+            color: #f5f5f5;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #8FBC8F;
+            transform: translateY(-2px);
+        }
+
+        .query-section {
+            background: rgba(47, 79, 79, 0.8);
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            width: 90%;
+            max-width: 1000px;
+        }
+
+        .query-section h2 {
+            color: #8FBC8F;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .query-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 10px;
+        }
+
+        .query-button {
+            padding: 15px 20px;
+            font-size: 1em;
+            font-weight: bold;
+            background-color: #3B614B;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .query-button:hover {
+            background-color: #4A7862;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            nav {
+                padding: 10px;
+                text-align: center;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px;
+                font-size: 0.9em;
+            }
+
+            .query-section {
+                padding: 15px;
+            }
+
+            .query-button {
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Tour Agency</h1>
+    <nav>
+        <a href="/plate">Payments</a> |
+        <a href="/destinatie">Destinations</a> |
+        <a href="/rezervare">Bookings</a> |
+        <a href="/turisti">Tourists</a> |
+        <a href="/tur">Tours</a> |
+        <a href="/plecare">Departures</a> |
+        <a href="/ghid">Guides</a>
+    </nav>
+
+    <div class="query-section">
+        <h2>Simple JOIN interogations</h2>
+        <div class="query-grid">
+            <button onclick="window.location.href='/query/tours-with-guides'" class="query-button">Guides Tours</button>
+            <button onclick="window.location.href='/query/payments-tourists'" class="query-button">Payments-Tourists</button>
+            <div>
+                <button onclick="window.location.href='/query/destination-tours/1'" class="query-button">Trail Maps</button>
+                <!-- Add duration filter -->
+                <div class="duration-form">
+                    <label for="minDuration">Minimum Duration (days):</label>
+                    <input type="number" id="minDuration" min="1" value="1" class="duration-input">
+                    <button onclick="searchByDuration()" class="filter-button">Filter by Duration</button>
+                </div>
+            </div>
+            <button onclick="window.location.href='/query/departures-with-details'" class="query-button">Start Times</button>
+            <button onclick="window.location.href='/query/payments-by-tour'" class="query-button">Trail Fees</button>
+            <button onclick="window.location.href='/query/popular-destinations'" class="query-button">Popular Trails</button>
+        </div>
+    </div>
+
+    <div class="query-section">
+        <h2>Complex interogations</h2>
+        <div class="query-grid">
+            <button onclick="window.location.href='/query/Tururi-eficiente'" class="query-button">Eficient Tours</button>
+            <button onclick="window.location.href='/query/top-guides'" class="query-button">Top Guides</button>
+            <button onclick="window.location.href='/query/top-tours'" class="query-button">Top Tours</button>
+            <div>
+                <button onclick="window.location.href='/query/card-payments'" class="query-button">Payments Group</button>
+                <!-- Add payment method selector -->
+                <div class="payment-method-form">
+                    <select id="paymentMethod">
+                        <option value="Card">Card</option>
+                        <option value="Numerar">Numerar</option>
+                        <option value="Transfer bancar">Transfer bancar</option>
+                    </select>
+                    <button onclick="searchByPaymentMethod()">Search by Payment Method</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function searchByDuration() {
+            const minDuration = document.getElementById('minDuration').value;
+            window.location.href = `/query/destination-tours/${minDuration}`;
+        }
+    </script>
+    <script>
+        function searchByPaymentMethod() {
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            window.location.href = `/query/payments-by-method/${paymentMethod}`;
+        }
+    </script>
+</body>
+</html>
